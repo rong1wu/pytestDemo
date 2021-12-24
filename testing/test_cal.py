@@ -1,12 +1,25 @@
 import pytest
+import yaml
 
 from Api.caculator import caculator
 
 
+def get_yaml():
+    with open('./data/calc.yml',encoding='utf-8') as f:
+        data = yaml.safe_load(f)
+    add_datas = data['add']['datas']
+    add_ids = data['add']['ids']
+    return [add_datas, add_ids]
+
 class TestCalc:
-    # 对浮点数进行取后二位,使用round
+
+    @pytest.mark.parametrize('a,b,expect',get_yaml()[0],ids=get_yaml()[1])
+    def test_add_yaml(self, a, b, expect):
+        result = self.calc.add(a, b)
+        assert result == expect
+
     @pytest.mark.parametrize('a,b,expect', [[2, 2, 4], [100, 200, 300]],
-                             ids=['int_case', 'big_num', 'float_case'])
+                             ids=['int_case', 'big_num'])
     def test_add(self, a, b, expect):
         result = self.calc.add(a, b)
         assert result == expect
@@ -29,10 +42,10 @@ class TestCalc:
         result = self.calc.div(a, b)
         assert result == expect
 
-    #捕获异常
+    # 捕获异常
     def test_div_exception(self):
         with pytest.raises(ZeroDivisionError):
-            result=self.calc.div(1,0)
+            result = self.calc.div(1, 0)
 
     @pytest.mark.parametrize('a,b,expect', [[0, 2, 0], [1, 200, 200], [0.1, -0.1, -0.01]],
                              ids=['int_case', 'big_num', 'float_case'])
@@ -44,7 +57,7 @@ class TestCalc:
                              ids=['float_case'])
     def test_muli(self, a, b, expect):
         result = self.calc.muli(a, b)
-        assert round(result,4) == expect
+        assert round(result, 4) == expect
 
     def setup_class(self):
         self.calc = caculator()
