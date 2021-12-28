@@ -1,4 +1,4 @@
-class caculator:
+class calcApi:
     def add(self, a, b):
         return a + b
 

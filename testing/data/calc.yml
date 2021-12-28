@@ -10,3 +10,30 @@ add:
     - 'int_case'
     - 'max_case'
     - 'float_case'
+sub:
+  datas:
+    - [2,2,0]
+    - [0,-0.2,0.2]
+    - [100,200,-100]
+  ids:
+    - 'int_case'
+    - 'float_case'
+    - 'max_case'
+muli:
+  datas:
+    - [2,3,6]
+    - [0.1,0.1,0.01]
+    - [100,-100,-10000]
+  ids:
+    - 'int_case'
+    - 'float_case'
+    - 'max_case'
+div:
+  datas:
+    - [0,1,0]
+    - [-9,2,-4.5]
+    - [100,1,100]
+  ids:
+    - 'int_case'
+    - 'float_case'
+    - 'max_case'
